@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#123b78" />
+    <meta
+      name="description"
+      content="Conheça a plataforma Quero Emprego, iniciativa de inclusão produtiva do MDS para pessoas inscritas no Cadastro Único e empresas parceiras."
+    />
+    <title>
+      Quero Emprego | Ministério do Desenvolvimento e Assistência Social
+    </title>
+
+    <!--
+      URLs EXTERNAS UTILIZADAS
+
+      Portal gov.br:
+      https://www.gov.br/
+
+      Portal do MDS:
+      https://www.gov.br/mds/pt-br
+
+      Autenticação geral:
+      https://sso.mds.gov.br/login
+
+      Acesso à plataforma Quero Emprego:
+      https://sso.mds.gov.br/govbr/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/
+
+      Acesso administrativo:
+      https://sso.mds.gov.br/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/
+
+      Inscrição no Cadastro Único:
+      https://www.gov.br/pt-br/servicos/inscrever-se-no-cadastro-unico-para-programas-sociais-do-governo-federal
+    -->
+
+    <style>
+      /* ================================================================
+         1. Tokens visuais e estilos globais
+         ================================================================ */
+      :root {
+        --blue: #1351b4;
+        --blue-dark: #0b326b;
+        --blue-deep: #071d3b;
+        --ink: #253245;
+        --muted: #526276;
+        --line: #dce4ee;
+        --soft: #f5f8fc;
+        --white: #fff;
+        --gold: #ffcf49;
+        --focus: #ffbf47;
+        scroll-behavior: smooth;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--white);
+        color: var(--ink);
+        font:
+          16px/1.6 Arial,
+          Helvetica,
+          sans-serif;
+      }
+      a {
+        color: var(--blue);
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+      }
+      svg {
+        display: block;
+      }
+      .container {
+        width: min(1160px, calc(100% - 40px));
+        margin-inline: auto;
+      }
+      .skip {
+        position: absolute;
+        left: 12px;
+        top: -80px;
+        background: var(--gold);
+        color: #111;
+        padding: 10px 16px;
+        z-index: 20;
+      }
+      .skip:focus {
+        top: 12px;
+      }
+      :focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+      /* ================================================================
+         2. Barra institucional gov.br e cabeçalho
+         ================================================================ */
+      .gov-line {
+        border-bottom: 1px solid #e5e9ef;
+        background: #fff;
+      }
+      .gov-line .container {
+        min-height: 57px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .gov-mark {
+        font-size: 32px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: -2px;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .gov-mark .g,
+      .gov-mark .v,
+      .gov-mark .b {
+        color: #2963ad;
+      }
+      .gov-mark .o {
+        color: #e4b11c;
+      }
+      .gov-mark .r {
+        color: #61a662;
+      }
+      .gov-mark .dot {
+        color: #1e5aa4;
+      }
+      .presidency {
+        padding-left: 24px;
+        border-left: 1px solid #d1d8e2;
+        font-size: 14px;
+        color: #1c2634;
+      }
+      .gov-actions {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .gov-actions a {
+        text-decoration: none;
+      }
+      .gov-actions a:hover {
+        text-decoration: underline;
+      }
+      .gov-login {
+        padding: 8px 16px;
+        border-radius: 50px;
+        background: var(--blue);
+        color: #fff !important;
+        white-space: nowrap;
+      }
+      .site-header {
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+        position: relative;
+        z-index: 5;
+      }
+      .masthead {
+        min-height: 94px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 28px;
+      }
+      .ministry {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        color: #202d3e;
+        font-size: 21px;
+        line-height: 1.23;
+        letter-spacing: -0.35px;
+        max-width: 580px;
+      }
+      .ministry:hover {
+        text-decoration: none;
+      }
+      .ministry-symbol {
+        display: grid;
+        place-items: center;
+        width: 41px;
+        height: 41px;
+        flex: none;
+        border-radius: 10px;
+        background: #e9f0fc;
+        color: var(--blue);
+        font-weight: 900;
+        font-size: 27px;
+      }
+      .main-nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .main-nav a {
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .main-nav a:hover {
+        text-decoration: underline;
+      }
+      .nav-toggle {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: white;
+        color: var(--blue);
+        font-weight: 700;
+      }
+      /* Navegação estrutural (breadcrumb). */
+      .crumbs {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+      }
+      .crumbs a {
+        text-decoration: none;
+      }
+      .crumbs span[aria-current] {
+        color: #303b49;
+        font-weight: 600;
+      }
+      /* ================================================================
+         3. Destaque principal e painel com as etapas de acesso
+         ================================================================ */
+      .hero {
+        background: linear-gradient(
+          118deg,
+          #092e66 0%,
+          #104b9b 62%,
+          #1564b3 100%
+        );
+        color: white;
+        overflow: hidden;
+        position: relative;
+      }
+      .hero::before {
+        content: "";
+        width: 650px;
+        height: 650px;
+        border: 1px solid #ffffff25;
+        border-radius: 50%;
+        position: absolute;
+        left: calc(50% + 180px);
+        top: -325px;
+        box-shadow:
+          0 0 0 110px #ffffff07,
+          0 0 0 220px #ffffff05;
+        pointer-events: none;
+      }
+      .hero .container {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.04fr) minmax(330px, 0.78fr);
+        gap: 90px;
+        align-items: center;
+        padding-block: 85px 91px;
+      }
+      .eyebrow {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font-weight: 800;
+        color: #bed9fb;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 29px;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 5px;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+      h1 {
+        font-size: clamp(40px, 4.2vw, 61px);
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+        margin: 18px 0 20px;
+        max-width: 670px;
+      }
+      h2 {
+        font-size: clamp(28px, 3vw, 38px);
+        line-height: 1.2;
+        letter-spacing: -0.035em;
+        margin-bottom: 14px;
+        color: #172c49;
+      }
+      h3 {
+        font-size: 21px;
+        line-height: 1.3;
+        letter-spacing: -0.015em;
+        margin-bottom: 10px;
+        color: #152d4d;
+      }
+      .hero-copy {
+        font-size: 18px;
+        line-height: 1.65;
+        color: #e6f0ff;
+        max-width: 610px;
+        margin-bottom: 28px;
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .button {
+        min-height: 47px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 11px 19px;
+        border-radius: 7px;
+        font-size: 15px;
+        line-height: 1.3;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        transition:
+          background 0.16s,
+          transform 0.16s;
+      }
+      .button:hover {
+        text-decoration: none;
+        transform: translateY(-2px);
+      }
+      .button-primary {
+        background: #fff;
+        color: #0d438f;
+      }
+      .button-primary:hover {
+        background: #e7f0ff;
+      }
+      .button-outline {
+        border: 1px solid #b9d7ff;
+        color: #fff;
+      }
+      .button-outline:hover {
+        background: #ffffff18;
+      }
+      .button-blue {
+        background: var(--blue);
+        color: #fff;
+      }
+      .button-blue:hover {
+        background: #0b438e;
+      }
+      .button-light {
+        background: #e9f1fc;
+        color: #0e468f;
+      }
+      .button-light:hover {
+        background: #d9e8fa;
+      }
+      .hero-note {
+        font-size: 13px;
+        color: #cbdff9;
+        margin: 15px 0 0;
+      }
+      .hero-note a {
+        color: inherit;
+        font-weight: 700;
+      }
+      .hero-panel {
+        background: #fff;
+        color: var(--ink);
+        border-radius: 17px;
+        padding: 27px;
+        box-shadow: 0 20px 55px #001e46a3;
+        position: relative;
+      }
+      .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 19px;
+      }
+      .panel-icon {
+        display: grid;
+        place-items: center;
+        width: 45px;
+        height: 45px;
+        border-radius: 11px;
+        background: #e9f1fc;
+        color: var(--blue);
+      }
+      .panel-icon svg {
+        width: 23px;
+        height: 23px;
+      }
+      .panel-head strong {
+        font-size: 17px;
+        color: #18304d;
+      }
+      .panel-head small {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .path {
+        display: flex;
+        gap: 14px;
+        padding: 15px 0;
+        border-top: 1px solid #e8edf4;
+      }
+      .path-num {
+        width: 29px;
+        height: 29px;
+        flex: none;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: #e8f0fd;
+        color: #1351b4;
+        font-weight: 800;
+        font-size: 13px;
+      }
+      .path strong {
+        display: block;
+        color: #172e4c;
+        font-size: 14px;
+      }
+      .path div span {
+        font-size: 13px;
+        color: #607186;
+        line-height: 1.45;
+        display: block;
+        margin-top: 2px;
+      }
+      /* ================================================================
+         4. Estruturas compartilhadas pelas seções de conteúdo
+         ================================================================ */
+      .section {
+        padding: 83px 0;
+      }
+      .section.soft {
+        background: var(--soft);
+      }
+      .section-kicker {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: #1255a8;
+        margin-bottom: 10px;
+      }
+      .section-lead {
+        font-size: 17px;
+        color: var(--muted);
+        max-width: 800px;
+        margin-bottom: 36px;
+        line-height: 1.7;
+      }
+      /* Cartões para trabalhadores e empresas parceiras. */
+      .audience {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+      .audience-card {
+        border: 1px solid var(--line);
+        background: white;
+        border-radius: 14px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: 318px;
+        box-shadow: 0 4px 22px #183c6a09;
+      }
+      .audience-card .icon {
+        width: 51px;
+        height: 51px;
+        border-radius: 13px;
+        background: #eaf2fc;
+        display: grid;
+        place-items: center;
+        color: var(--blue);
+        margin-bottom: 20px;
+      }
+      .audience-card .icon svg {
+        width: 27px;
+        height: 27px;
+      }
+      .audience-card p {
+        color: var(--muted);
+        margin-bottom: 22px;
+      }
+      .audience-card .button {
+        margin-top: auto;
+      }
+      /* Fluxo de publicação, consulta e candidatura. */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 25px;
+        counter-reset: step;
+      }
+      .step {
+        padding: 4px 10px 0 0;
+      }
+      .step::before {
+        counter-increment: step;
+        content: "0" counter(step);
+        display: grid;
+        place-items: center;
+        width: 55px;
+        height: 55px;
+        border-radius: 13px;
+        background: #eaf2fc;
+        color: #1652a4;
+        font-size: 19px;
+        font-weight: 800;
+        margin-bottom: 22px;
+      }
+      .step p {
+        color: var(--muted);
+      }
+      /* Apresentação institucional e lista de benefícios. */
+      .about {
+        display: grid;
+        grid-template-columns: 1fr 0.78fr;
+        gap: 65px;
+        align-items: center;
+      }
+      .about p {
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+      .about p:last-child {
+        margin-bottom: 0;
+      }
+      .about-list {
+        background: #f0f5fc;
+        border-radius: 16px;
+        padding: 30px 32px;
+      }
+      .about-list h3 {
+        font-size: 18px;
+      }
+      .about-list ul {
+        margin: 15px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .about-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        padding: 12px 0;
+        border-top: 1px solid #dae5f3;
+        color: #334761;
+      }
+      .about-list li::before {
+        content: "✓";
+        color: #1458ad;
+        font-weight: 900;
+      }
+      /* Faixa de chamada para acesso à plataforma. */
+      .access-band {
+        background: #0b326b;
+        color: #fff;
+      }
+      .access-band .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+        padding-block: 43px;
+      }
+      .access-band h2 {
+        color: white;
+        font-size: 27px;
+        margin-bottom: 7px;
+      }
+      .access-band p {
+        color: #d4e5fb;
+        margin: 0;
+      }
+      .access-band .button {
+        flex: none;
+      }
+      /* Perguntas frequentes com elementos nativos expansíveis. */
+      .faq {
+        max-width: 850px;
+      }
+      .faq details {
+        border-top: 1px solid var(--line);
+        padding: 19px 0;
+      }
+      .faq details:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: #203653;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq summary::after {
+        content: "+";
+        font-size: 25px;
+        font-weight: 400;
+        color: var(--blue);
+      }
+      .faq details[open] summary::after {
+        content: "−";
+      }
+      .faq details p {
+        color: var(--muted);
+        margin: 12px 30px 0 0;
+      }
+      /* ================================================================
+         5. Rodapé institucional
+         ================================================================ */
+      .footer {
+        background: #081b36;
+        color: #d2e1f3;
+        padding: 38px 0 28px;
+      }
+      .footer-main {
+        display: flex;
+        justify-content: space-between;
+        gap: 35px;
+        align-items: flex-start;
+      }
+      .footer strong {
+        font-size: 17px;
+        color: #fff;
+      }
+      .footer p {
+        margin: 7px 0 0;
+        max-width: 530px;
+        font-size: 14px;
+      }
+      .footer a {
+        color: #dbeaff;
+      }
+      .footer-links {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        font-size: 14px;
+      }
+      .footer-bottom {
+        border-top: 1px solid #ffffff25;
+        margin-top: 30px;
+        padding-top: 21px;
+        font-size: 12px;
+        color: #a9c0db;
+      }
+      /* ================================================================
+         6. Responsividade e preferências de acessibilidade
+         ================================================================ */
+      @media (max-width: 1040px) {
+        .main-nav {
+          gap: 14px;
+        }
+        .main-nav a {
+          font-size: 13px;
+        }
+        .hero .container {
+          gap: 35px;
+        }
+        .ministry {
+          font-size: 18px;
+        }
+      }
+      @media (max-width: 800px) {
+        .gov-actions a:not(.gov-login) {
+          display: none;
+        }
+        .masthead {
+          min-height: 78px;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .main-nav {
+          display: none;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 100%;
+          background: #fff;
+          box-shadow: 0 12px 20px #08274a20;
+          padding: 20px max(20px, calc((100vw - 1160px) / 2));
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 18px;
+        }
+        .main-nav.open {
+          display: flex;
+        }
+        .main-nav a {
+          font-size: 15px;
+        }
+        .hero .container {
+          grid-template-columns: 1fr;
+          padding-block: 64px;
+          gap: 35px;
+        }
+        .hero-panel {
+          max-width: 560px;
+        }
+        .about {
+          grid-template-columns: 1fr;
+          gap: 27px;
+        }
+        .footer-main {
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 640px) {
+        .container {
+          width: min(100% - 32px, 1160px);
+        }
+        .gov-line .container {
+          min-height: 52px;
+          gap: 12px;
+        }
+        .gov-mark {
+          font-size: 27px;
+        }
+        .presidency {
+          font-size: 11px;
+          padding-left: 12px;
+          line-height: 1.25;
+        }
+        .gov-actions {
+          display: none;
+        }
+        .ministry {
+          font-size: 15px;
+          gap: 9px;
+        }
+        .ministry-symbol {
+          width: 35px;
+          height: 35px;
+          font-size: 23px;
+        }
+        .nav-toggle {
+          font-size: 13px;
+        }
+        .crumbs {
+          font-size: 12px;
+        }
+        .section {
+          padding: 60px 0;
+        }
+        .hero .container {
+          padding-block: 55px;
+        }
+        .hero-copy {
+          font-size: 16px;
+        }
+        .hero-panel {
+          padding: 22px;
+        }
+        .audience,
+        .steps {
+          grid-template-columns: 1fr;
+        }
+        .audience-card {
+          min-height: 0;
+        }
+        .step {
+          padding-bottom: 8px;
+        }
+        .access-band .container {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .access-band .button {
+          width: 100%;
+        }
+        .footer-links {
+          gap: 15px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        :root {
+          scroll-behavior: auto;
+        }
+        .button {
+          transition: none;
+        }
+        .button:hover {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Acessibilidade: permite ir diretamente ao conteúdo principal. -->
+    <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+    <!-- Barra institucional e atalhos externos. -->
+    <div class="gov-line">
+      <div class="container">
+        <a class="gov-mark" href="https://www.gov.br/" aria-label="gov.br"
+          ><span class="g">g</span><span class="o">o</span
+          ><span class="v">v</span><span class="dot">.</span
+          ><span class="b">b</span><span class="r">r</span></a
+        ><span class="presidency">Presidência da República</span>
+        <div class="gov-actions">
+          <a href="https://www.gov.br/mds/pt-br">Portal do MDS</a
+          ><a class="gov-login" href="https://sso.mds.gov.br/login"
+            >Entrar com gov.br</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- Cabeçalho e navegação principal da página. -->
+    <header class="site-header">
+      <div class="container masthead">
+        <a href="#inicio" class="ministry"
+          ><span class="ministry-symbol" aria-hidden="true">≡</span
+          ><span
+            >Ministério do Desenvolvimento e Assistência Social, Família e
+            Combate à Fome</span
+          ></a
+        ><button
+          class="nav-toggle"
+          type="button"
+          aria-controls="main-nav"
+          aria-expanded="false"
+        >
+          ☰ Menu
+        </button>
+        <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
+          <a href="#sobre">Sobre a plataforma</a
+          ><a href="#publicos">Para quem é</a
+          ><a href="#funcionamento">Como funciona</a
+          ><a href="#duvidas">Dúvidas frequentes</a>
+        </nav>
+      </div>
+    </header>
+    <!-- Caminho de navegação dentro do portal institucional. -->
+    <div class="container crumbs" aria-label="Navegação estrutural">
+      <a href="https://www.gov.br/mds/pt-br">Início</a
+      ><span aria-hidden="true">›</span><span>Acredita no Primeiro Passo</span
+      ><span aria-hidden="true">›</span
+      ><span aria-current="page">Quero Emprego</span>
+    </div>
+    <main id="conteudo">
+      <!-- Apresentação, chamadas de acesso e resumo das etapas. -->
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <div class="container">
+          <div>
+            <div class="eyebrow">Plataforma Quero Emprego</div>
+            <h1 id="hero-title">Oportunidades de trabalho em um só lugar</h1>
+            <p class="hero-copy">
+              A plataforma <strong>Quero Emprego</strong> aproxima pessoas
+              inscritas no Cadastro Único das vagas disponibilizadas por
+              empresas parceiras da Secretaria de Inclusão Socioeconômica do
+              MDS.
+            </p>
+            <div class="actions">
+              <a
+                class="button button-primary"
+                href="https://sso.mds.gov.br/govbr/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/"
+                >Acessar a plataforma <span aria-hidden="true">↗</span></a
+              ><a class="button button-outline" href="#funcionamento"
+                >Entenda como funciona ↓</a
+              >
+            </div>
+            <p class="hero-note">
+              O acesso é restrito a indivíduos inscritos no Cadastro Único.
+              <a
+                href="https://www.gov.br/pt-br/servicos/inscrever-se-no-cadastro-unico-para-programas-sociais-do-governo-federal"
+                >Saiba como se inscrever</a
+              >.
+            </p>
+          </div>
+          <div class="hero-panel" aria-label="Etapas para buscar uma vaga">
+            <div class="panel-head">
+              <span class="panel-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24" fill="none">
+                  <rect
+                    x="3"
+                    y="7"
+                    width="18"
+                    height="14"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  /></svg
+              ></span>
+              <div>
+                <strong>Seu caminho até as vagas</strong
+                ><small>Conheça as etapas da plataforma</small>
+              </div>
+            </div>
+            <div class="path">
+              <span class="path-num">1</span>
+              <div>
+                <strong>Acesse com sua conta gov.br</strong
+                ><span>Identifique-se para entrar na plataforma.</span>
+              </div>
+            </div>
+            <div class="path">
+              <span class="path-num">2</span>
+              <div>
+                <strong>Complete seu cadastro</strong
+                ><span
+                  >Informe os dados solicitados para apresentar seu
+                  perfil.</span
+                >
+              </div>
+            </div>
+            <div class="path">
+              <span class="path-num">3</span>
+              <div>
+                <strong>Consulte e se candidate</strong
+                ><span>Veja as oportunidades disponíveis para seu perfil.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Públicos atendidos pela plataforma. -->
+      <section
+        class="section soft"
+        id="publicos"
+        aria-labelledby="publicos-title"
+      >
+        <div class="container">
+          <div class="section-kicker">Públicos da plataforma</div>
+          <h2 id="publicos-title">
+            Um espaço para trabalhadores e empresas parceiras
+          </h2>
+          <p class="section-lead">
+            A plataforma reúne oportunidades oferecidas por empresas parceiras e
+            organiza a candidatura de pessoas inscritas no CadÚnico.
+          </p>
+          <div class="audience">
+            <article class="audience-card">
+              <div class="icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="7" r="3" />
+                  <path d="M5 21v-3a7 7 0 0 1 14 0v3" />
+                </svg>
+              </div>
+              <h3>Para quem busca emprego</h3>
+              <p>
+                Pessoas inscritas no Cadastro Único podem entrar com a conta
+                gov.br, completar o cadastro, consultar vagas disponíveis e se
+                candidatar pela plataforma.
+              </p>
+              <a
+                class="button button-blue"
+                href="https://sso.mds.gov.br/govbr/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/"
+                >Entrar como trabalhador <span aria-hidden="true">↗</span></a
+              >
+            </article>
+            <article class="audience-card">
+              <div class="icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="7" width="18" height="14" rx="2" />
+                  <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 14h18" />
+                </svg>
+              </div>
+              <h3>Para empresas parceiras</h3>
+              <p>
+                Empresas formalmente vinculadas à SISEC podem publicar e
+                gerenciar vagas voltadas ao público do CadÚnico e acompanhar os
+                encaminhamentos no ambiente autorizado.
+              </p>
+              <a
+                class="button button-light"
+                href="https://sso.mds.gov.br/govbr/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/"
+                >Acessar área da empresa <span aria-hidden="true">↗</span></a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+      <!-- Fluxo simplificado de uso do Quero Emprego. -->
+      <section class="section" id="funcionamento" aria-labelledby="func-title">
+        <div class="container">
+          <div class="section-kicker">Como funciona</div>
+          <h2 id="func-title">Da publicação da vaga à candidatura</h2>
+          <p class="section-lead">
+            Um fluxo organizado ajuda empresas e trabalhadores a acompanhar as
+            oportunidades em um mesmo ambiente.
+          </p>
+          <div class="steps">
+            <div class="step">
+              <h3>A empresa informa a vaga</h3>
+              <p>
+                A empresa parceira cadastra as oportunidades e os requisitos
+                necessários para cada função.
+              </p>
+            </div>
+            <div class="step">
+              <h3>O trabalhador encontra oportunidades</h3>
+              <p>
+                Após entrar e completar o cadastro, a pessoa pode consultar as
+                vagas disponíveis na plataforma.
+              </p>
+            </div>
+            <div class="step">
+              <h3>A candidatura segue pela plataforma</h3>
+              <p>
+                O candidato demonstra interesse na vaga e se candidata, e a
+                empresa acompanha as candidaturas no ambiente autorizado.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Contexto institucional da iniciativa. -->
+      <section class="section soft" id="sobre" aria-labelledby="sobre-title">
+        <div class="container about">
+          <div>
+            <div class="section-kicker">Iniciativa institucional</div>
+            <h2 id="sobre-title">
+              Inclusão produtiva com acesso a oportunidades
+            </h2>
+            <p>
+              O Quero Emprego integra as ações de inclusão socioeconômica do
+              Ministério do Desenvolvimento e Assistência Social, Família e
+              Combate à Fome. A Secretaria de Inclusão Socioeconômica (SISEC)
+              articula parcerias para aproximar o público do Cadastro Único de
+              oportunidades de trabalho.
+            </p>
+            <p>
+              A iniciativa está alinhada ao Programa Acredita no Primeiro Passo,
+              que reúne ações de emprego, qualificação profissional e
+              empreendedorismo. Na plataforma, o foco é organizar a divulgação
+              das vagas de empresas parceiras e facilitar o encontro entre
+              oportunidades e candidatos.
+            </p>
+          </div>
+          <div class="about-list">
+            <h3>O que a plataforma oferece</h3>
+            <ul>
+              <li>Canal para divulgação de vagas das empresas parceiras</li>
+              <li>Consulta e candidatura em um ambiente digital</li>
+              <li>
+                Organização dos requisitos das vagas e dos perfis de candidatos
+              </li>
+              <li>Acompanhamento do fluxo de vagas pela equipe responsável</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- Chamada final para autenticação. -->
+      <section class="access-band" aria-labelledby="access-title">
+        <div class="container">
+          <div>
+            <h2 id="access-title">Pronto para acessar?</h2>
+            <p>
+              Entre com sua conta e utilize as funções disponíveis para o seu
+              perfil.
+            </p>
+          </div>
+          <a class="button button-primary" href="https://sso.mds.gov.br/login"
+            >Acessar o Quero Emprego <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <!-- Perguntas frequentes. -->
+      <section class="section" id="duvidas" aria-labelledby="duvidas-title">
+        <div class="container faq">
+          <div class="section-kicker">Dúvidas frequentes</div>
+          <h2 id="duvidas-title">Informações para começar</h2>
+          <details>
+            <summary>Quem pode acessar a plataforma?</summary>
+            <p>
+              As funcionalidades para candidatos são voltadas às pessoas
+              inscritas no Cadastro Único. A área de empresas é destinada às
+              parceiras formalmente vinculadas à SISEC. O acesso depende do
+              perfil habilitado.
+            </p>
+          </details>
+          <details>
+            <summary>Como faço para me candidatar?</summary>
+            <p>
+              Acesse a plataforma, identifique-se com a conta gov.br, complete
+              os dados do seu cadastro e consulte as oportunidades disponíveis.
+              Ao encontrar uma vaga, siga as instruções de candidatura
+              apresentadas na plataforma.
+            </p>
+          </details>
+          <details>
+            <summary>O cadastro garante uma vaga?</summary>
+            <p>
+              Não. A candidatura permite participar do processo referente à
+              oportunidade escolhida. Os requisitos da vaga e as etapas de
+              seleção são definidos pela empresa responsável.
+            </p>
+          </details>
+          <details>
+            <summary>Como uma empresa pode publicar vagas?</summary>
+            <p>
+              A publicação é destinada às empresas parceiras autorizadas pela
+              SISEC. Representantes habilitados devem acessar a plataforma
+              conforme o perfil de empresa.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+    <!-- Rodapé institucional e atalhos externos. -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-main">
+          <div>
+            <strong>Quero Emprego</strong>
+            <p>
+              Plataforma vinculada às ações de inclusão socioeconômica do
+              Ministério do Desenvolvimento e Assistência Social, Família e
+              Combate à Fome.
+            </p>
+          </div>
+          <div class="footer-links">
+            <a href="https://www.gov.br/mds/pt-br">Portal do MDS</a
+            ><a
+              href="https://sso.mds.gov.br/govbr/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/"
+              >Acesso à plataforma</a
+            ><a
+              href="https://sso.mds.gov.br/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/"
+              aria-label="Acesso administrativo à plataforma"
+              >Acesso administrativo</a
+            ><a href="#inicio">Voltar ao início ↑</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          Secretaria de Inclusão Socioeconômica · Ministério do Desenvolvimento
+          e Assistência Social, Família e Combate à Fome
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Controla a abertura do menu principal em telas menores.
+      const toggle = document.querySelector(".nav-toggle");
+      const nav = document.getElementById("main-nav");
+
+      toggle.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!open));
+        nav.classList.toggle("open", !open);
+      });
+
+      // Fecha o menu depois que uma opção de navegação é selecionada.
+      nav.addEventListener("click", (event) => {
+        if (event.target.closest("a")) {
+          toggle.setAttribute("aria-expanded", "false");
+          nav.classList.remove("open");
+        }
+      });
+    </script>
+  </body>
+</html>
