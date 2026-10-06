@@ -32,6 +32,9 @@
 
       Inscrição no Cadastro Único:
       https://www.gov.br/pt-br/servicos/inscrever-se-no-cadastro-unico-para-programas-sociais-do-governo-federal
+
+      Formulário para empresas parceiras:
+      https://forms.cloud.microsoft/r/9iDZDmmxC8 (Isa ainda vai elaborar o forms, link temp do LT17)
     -->
 
     <style>
@@ -382,6 +385,14 @@
       .button-light:hover {
         background: #d9e8fa;
       }
+      .button-outline-blue {
+        border: 1px solid #9bbce5;
+        background: #fff;
+        color: #0e468f;
+      }
+      .button-outline-blue:hover {
+        background: #f0f5fc;
+      }
       .hero-note {
         font-size: 13px;
         color: #cbdff9;
@@ -519,10 +530,19 @@
       .audience-card .button {
         margin-top: auto;
       }
+      .card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: auto;
+      }
+      .audience-card .card-actions .button {
+        margin-top: 0;
+      }
       /* Fluxo de publicação, consulta e candidatura. */
       .steps {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 25px;
         counter-reset: step;
       }
@@ -550,7 +570,8 @@
       .about {
         display: grid;
         grid-template-columns: 1fr 0.78fr;
-        gap: 65px;
+        column-gap: 65px;
+        row-gap: 30px;
         align-items: center;
       }
       .about p {
@@ -586,6 +607,21 @@
         content: "✓";
         color: #1458ad;
         font-weight: 900;
+      }
+      .partner-callout {
+        grid-column: 1 / -1;
+        padding: 30px 32px;
+        border: 1px solid #d7e3f2;
+        border-left: 5px solid var(--blue);
+        border-radius: 14px;
+        background: var(--white);
+      }
+      .partner-callout h3 {
+        margin-bottom: 14px;
+        font-size: 24px;
+      }
+      .partner-callout a {
+        font-weight: 700;
       }
       /* Faixa de chamada para acesso à plataforma. */
       .access-band {
@@ -745,6 +781,9 @@
           grid-template-columns: 1fr;
           gap: 27px;
         }
+        .steps {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
         .footer-main {
           flex-direction: column;
         }
@@ -801,6 +840,10 @@
         }
         .audience-card {
           min-height: 0;
+        }
+        .card-actions,
+        .card-actions .button {
+          width: 100%;
         }
         .step {
           padding-bottom: 8px;
@@ -932,7 +975,7 @@
               ></span>
               <div>
                 <strong>Seu caminho até as vagas</strong
-                ><small>Conheça as etapas da plataforma</small>
+                ><small>Veja como é fácil usar a plataforma:</small>
               </div>
             </div>
             <div class="path">
@@ -955,8 +998,8 @@
             <div class="path">
               <span class="path-num">3</span>
               <div>
-                <strong>Consulte e se candidate</strong
-                ><span>Veja as oportunidades disponíveis para seu perfil.</span>
+                <strong>Consulte as vagas e candidate-se</strong
+                ><span>Veja as vagas disponíveis e candidate-se às oportunidades compatíveis com seu perfil.</span>
               </div>
             </div>
           </div>
@@ -1016,15 +1059,19 @@
               </div>
               <h3>Para empresas parceiras</h3>
               <p>
-                Empresas formalmente vinculadas à SISEC podem publicar e
-                gerenciar vagas voltadas ao público do CadÚnico e acompanhar os
-                encaminhamentos no ambiente autorizado.
+                Empresas parceiras do MDS podem publicar e gerenciar oportunidades de emprego para pessoas inscritas no CadÚnico e acompanhar as candidaturas no ambiente autorizado.
               </p>
-              <a
-                class="button button-light"
-                href="https://sso.mds.gov.br/govbr/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/"
-                >Acessar área da empresa <span aria-hidden="true">↗</span></a
-              >
+              <div class="card-actions">
+                <a
+                  class="button button-light"
+                  href="https://sso.mds.gov.br/govbr/routeReturn/quero-emprego.mds.gov.br?pathRedirect=/"
+                  >Acessar área da empresa <span aria-hidden="true">↗</span></a
+                >
+                <a class="button button-outline-blue" href="#empresa-parceira"
+                  >Seja uma empresa parceira 
+                  <span aria-hidden="true">↓</span></a
+                >
+              </div>
             </article>
           </div>
         </div>
@@ -1035,8 +1082,7 @@
           <div class="section-kicker">Como funciona</div>
           <h2 id="func-title">Da publicação da vaga à candidatura</h2>
           <p class="section-lead">
-            Um fluxo organizado ajuda empresas e trabalhadores a acompanhar as
-            oportunidades em um mesmo ambiente.
+            A plataforma aproxima pessoas inscritas no Cadastro Único das oportunidades de emprego oferecidas pelas empresas parceiras.
           </p>
           <div class="steps">
             <div class="step">
@@ -1054,10 +1100,15 @@
               </p>
             </div>
             <div class="step">
-              <h3>A candidatura segue pela plataforma</h3>
+              <h3>O trabalhador se candidata </h3>
               <p>
-                O candidato demonstra interesse na vaga e se candidata, e a
-                empresa acompanha as candidaturas no ambiente autorizado.
+                Ao encontrar uma oportunidade de interesse, o trabalhador pode se candidatar diretamente pelo Quero Emprego ou pode ser direcionado para a plataforma de recrutamento e seleção própria utilizada pela empresa parceira.
+              </p>
+            </div>
+            <div class="step">
+              <h3>A empresa entra em contato</h3>
+              <p>
+                A empresa recebe as candidaturas e pode entrar em contato com os candidatos para dar continuidade ao processo seletivo. O MDS facilita o acesso às oportunidades, mas não participa da seleção nem da contratação dos candidatos.
               </p>
             </div>
           </div>
@@ -1097,6 +1148,36 @@
               <li>Acompanhamento do fluxo de vagas pela equipe responsável</li>
             </ul>
           </div>
+          <article
+            class="partner-callout"
+            id="empresa-parceira"
+            aria-labelledby="partner-title"
+          >
+            <h3 id="partner-title">Quero ser uma empresa parceira</h3>
+            <p>
+              O Programa Acredita no Primeiro Passo é uma iniciativa do Governo
+              Federal que busca ampliar as oportunidades de inclusão
+              socioeconômica das pessoas inscritas no Cadastro Único, por meio do
+              acesso ao emprego, à qualificação profissional e ao
+              empreendedorismo.
+            </p>
+            <p>
+              Empresas podem contribuir para essa iniciativa por meio da oferta
+              de vagas de emprego destinadas ao público do Cadastro Único.
+            </p>
+            <p>
+              Se sua empresa tem interesse em conhecer o Programa e as
+              possibilidades de parceria no eixo do acesso ao emprego, acesse o
+              <a href="https://forms.cloud.microsoft/r/9iDZDmmxC8"
+                >formulário de contato</a
+              >.
+            </p>
+            <p>
+              Após o envio, a equipe do Programa entrará em contato para
+              apresentar como funciona a parceria e orientar sobre os próximos
+              passos.
+            </p>
+          </article>
         </div>
       </section>
       <!-- Chamada final para autenticação. -->
